@@ -1,6 +1,3 @@
-import ChooseDifficulty from "./ChooseDifficulty";
-import ChooseQuestions from "./ChooseQuestions";
-
 function StartScreen({ numQuestions, dispatch }) {
   return (
     <div className="start">
