@@ -1,13 +1,15 @@
 import { useQuiz } from "../contexts/QuizContext";
 
 function StartBtn() {
-  const { dispatch } = useQuiz();
+  const { dispatch, chosenQuestions } = useQuiz();
   return (
     <div className="start">
       <br />
       <button
         className="btn btn-ui"
-        onClick={() => dispatch({ type: "start" })}
+        onClick={() => {
+          if (chosenQuestions.length !== 0) dispatch({ type: "start" });
+        }}
       >
         Let's Start
       </button>
