@@ -1,4 +1,7 @@
-function StartBtn({ dispatch }) {
+import { useQuiz } from "../contexts/QuizContext";
+
+function StartBtn() {
+  const { dispatch } = useQuiz();
   return (
     <div className="start">
       <br />

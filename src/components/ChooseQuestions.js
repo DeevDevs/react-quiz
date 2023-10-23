@@ -1,4 +1,7 @@
-function ChooseQuestions({ questionsBank, chosenQuestions, dispatch }) {
+import { useQuiz } from "../contexts/QuizContext";
+
+function ChooseQuestions() {
+  const { dispatch, questionsBank, chosenQuestions } = useQuiz();
   return (
     <div className="start">
       <h3>You can choose the questions you do not want to include</h3>

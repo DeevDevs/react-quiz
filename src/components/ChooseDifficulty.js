@@ -1,4 +1,7 @@
-function ChooseDifficulty({ dispatch, difficulty }) {
+import { useQuiz } from "../contexts/QuizContext";
+
+function ChooseDifficulty() {
+  const { dispatch, difficulty } = useQuiz();
   return (
     <div className="start">
       <h3>Or, you can choose the difficulty level</h3>
