@@ -1,4 +1,5 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { data } from "../data";
 
 const QuizContext = createContext();
 
@@ -131,6 +132,20 @@ function QuizProvider({ children }) {
     dispatch,
   ] = useReducer(reducer, initialState);
 
+  const numQuestions = questions.length;
+  const maxPossiblePoints = questions.reduce(
+    (prev, cur) => prev + cur.points,
+    0
+  );
+
+  useEffect(
+    function () {
+      dispatch({ type: "dataReceived", payload: data });
+    },
+    // added dispatch into the dependency array... in doubts so far
+    [dispatch]
+  );
+
   return (
     <QuizContext.Provider
       value={{
@@ -147,6 +162,8 @@ function QuizProvider({ children }) {
         points,
         highscore,
         secondsRemaining,
+        numQuestions,
+        maxPossiblePoints,
       }}
     >
       {children}
@@ -157,7 +174,7 @@ function QuizProvider({ children }) {
 function useQuiz() {
   const context = useContext(QuizContext);
   if (context === undefined)
-    throw new Error("CitiesContext was used outside the CitiesProvider");
+    throw new Error("CitiesContext was used outside the QuizProvider");
   return context;
 }
 

@@ -13,25 +13,10 @@ import Timer from "./Timer";
 import ChooseQuestions from "./ChooseQuestions";
 import ChooseDifficulty from "./ChooseDifficulty";
 import StartBtn from "./StartBtn";
-import { data } from "../data";
 import { useQuiz } from "../contexts/QuizContext";
 
 export default function App() {
-  const { dispatch, questions, status } = useQuiz();
-
-  const numQuestions = questions.length;
-  const maxPossiblePoints = questions.reduce(
-    (prev, cur) => prev + cur.points,
-    0
-  );
-
-  useEffect(
-    function () {
-      dispatch({ type: "dataReceived", payload: data });
-    },
-    // added dispatch into the dependency array... in doubts so far
-    [dispatch]
-  );
+  const { status } = useQuiz();
 
   return (
     <div className="app">
@@ -49,20 +34,15 @@ export default function App() {
         )}
         {status === "active" && (
           <>
-            <Progress
-              numQuestions={numQuestions}
-              maxPossiblePoints={maxPossiblePoints}
-            />
+            <Progress />
             <Question />
             <Footer>
               <Timer />
-              <NextButton numQuestions={numQuestions} />
+              <NextButton />
             </Footer>
           </>
         )}
-        {status === "finished" && (
-          <FinishScreen maxPossiblePoints={maxPossiblePoints} />
-        )}
+        {status === "finished" && <FinishScreen />}
       </Main>
     </div>
   );
